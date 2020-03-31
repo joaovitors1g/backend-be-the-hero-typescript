@@ -12,11 +12,19 @@ interface IIncidentData {
 
 export default {
   async index(req: Request, res: Response) {
+    const { page = 1 } = req.query;
+
     const entityManager = getManager();
+
+    const count = await entityManager.count(Incident);
+
+    res.header('X-Total-Count', String(count));
 
     const incidents = await entityManager.find(Incident, {
       relations: ['ong'],
-      select: ['title', 'description', 'value']
+      select: ['id', 'title', 'description', 'value'],
+      skip: (page - 1) * 5,
+      take: 5
     });
 
     return res.json(incidents);
