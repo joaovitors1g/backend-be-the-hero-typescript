@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn
 } from 'typeorm';
+import { IsDecimal } from 'class-validator';
 import Ong from './Ong';
 
 @Entity({
@@ -21,6 +22,7 @@ export class Incident {
   description!: string;
 
   @Column()
+  @IsDecimal({ decimal_digits: '2' })
   value!: number;
 
   @Column({ select: false })

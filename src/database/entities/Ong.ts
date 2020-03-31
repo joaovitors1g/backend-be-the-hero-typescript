@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { IsEmail } from 'class-validator';
 import Incident from './Incident';
 
 @Entity({
@@ -12,6 +13,7 @@ export class Ong {
   name!: string;
 
   @Column()
+  @IsEmail()
   email!: string;
 
   @Column()
